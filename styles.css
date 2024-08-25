@@ -1,0 +1,9 @@
+body{
+    background-color:burlywood;
+    margin: 200px;
+}
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    justify-self: center;
+}
