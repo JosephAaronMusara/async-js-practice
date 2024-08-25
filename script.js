@@ -1,26 +1,25 @@
-const getTodos = (resource,callback) =>{
-    const request = new XMLHttpRequest();
+const getTodos = (resource) =>{
 
-    request.addEventListener('readystatechange',()=>{
-        if(request.readyState === 4 && request.status===200){
-            const data = JSON.parse(request.responseText);
-            callback(undefined,data);
-        } else if(request.readyState===4){
-            callback(`finished but could not fetch data. Status ${request.status}!!!`,undefined);
-        }
-    });
+    return new Promise((resolve,reject) =>{
+        const request = new XMLHttpRequest();
 
-    request.open('GET',resource);
-    request.send();
-};
-
-getTodos('todos/first.json',(err,data)=>{
-        console.log(data);
-        getTodos('todos/second.json',(err,data) =>{
-            console.log(data);
-            getTodos('todos/third.json',(err,data) => {
-                console.log(data);
-                //this act of nesting callbacks is called callback hell and is a bad practice
-            });
+        request.addEventListener('readystatechange',()=>{
+            if(request.readyState === 4 && request.status===200){
+                const data = JSON.parse(request.responseText);
+                resolve(data);
+            } else if(request.readyState===4){
+                reject(`finished but could not fetch data. Status [${request.status}]!!`);
+            }
         });
-    });
+    
+        request.open('GET',resource);
+        request.send();
+    })
+};
+getTodos('todos/second.json').then(data=>{
+    console.log('resolved : ',data);
+}).catch(err=>{
+    console.log('rejected : ',err);
+}).finally(()=>{
+    console.log('Kumagumo');
+});
