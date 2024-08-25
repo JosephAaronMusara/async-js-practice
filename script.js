@@ -16,10 +16,14 @@ const getTodos = (resource) =>{
         request.send();
     })
 };
-getTodos('todos/second.json').then(data=>{
-    console.log('resolved : ',data);
+getTodos('todos/first.json').then(data=>{
+    console.log('promise 1 resolved : ',data);
+    return getTodos('todos/second.json')
+}).then(data=>{
+    console.log('promise 2 resolved : ', data);
+    return getTodos('todos/third.json');
+}).then(data=>{
+    console.log('promise 3 resolved : ',data);
 }).catch(err=>{
     console.log('rejected : ',err);
-}).finally(()=>{
-    console.log('Kumagumo');
 });
