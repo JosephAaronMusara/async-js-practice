@@ -1,7 +1,7 @@
 //async and await
 
 const getTodos = async () => {
-    const response = await fetch('todos/first.json');
+    const response = await fetch('http://localhost/restapi/api/read.php');
     if(response.status !== 200){
         throw new Error('Failed to fetch data from resource');
     }
